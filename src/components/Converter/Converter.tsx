@@ -14,8 +14,8 @@ export const Converter: React.FC = () => {
   const [currencyNames, setCurrencyNames] = useState<string[]>([]);
   const [amountFrom, setAmountFrom] = useState(1);
   const [amountTo, setAmountTo] = useState(1);
-  const [currencyFrom, setCurrencyFrom] = useState('');
-  const [currencyTo, setCurrencyTo] = useState('');
+  const [currencyFrom, setCurrencyFrom] = useState('USD');
+  const [currencyTo, setCurrencyTo] = useState('UAH');
 
   useEffect(() => {
     getCurrencyList()
@@ -23,14 +23,6 @@ export const Converter: React.FC = () => {
         const keys = Object.keys(response.rates);
 
         setCurrencyNames(keys);
-        setCurrencyFrom('USD');
-        setCurrencyTo('UAH');
-
-        getExchangeRate('USD', 'UAH')
-          .then(result => {
-            setCurrentRate(result.info.rate);
-            setAmountTo(amountFrom * result.info.rate);
-          });
       });
   }, []);
 
@@ -79,7 +71,6 @@ export const Converter: React.FC = () => {
         <div className="converter__form-item converter__form-item--from">
           <Box>
             <TextField
-              name="amountFrom"
               id="outlined-basic"
               type="text"
               label="Amount"
@@ -91,7 +82,6 @@ export const Converter: React.FC = () => {
           </Box>
           <Box>
             <TextField
-              name="currencyFrom"
               id="outlined-select-currency"
               select
               label="Currency"
@@ -111,7 +101,6 @@ export const Converter: React.FC = () => {
         <div className="converter__form-item converter__form-item--to">
           <Box>
             <TextField
-              name="amountTo"
               id="outlined-basic"
               type="text"
               label="Amount"
@@ -123,7 +112,6 @@ export const Converter: React.FC = () => {
           </Box>
           <Box>
             <TextField
-              name="currencyTo"
               id="outlined-select-currency"
               select
               label="Currency"
