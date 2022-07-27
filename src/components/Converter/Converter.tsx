@@ -25,6 +25,12 @@ export const Converter: React.FC = () => {
         setCurrencyNames(keys);
         setCurrencyFrom('USD');
         setCurrencyTo('UAH');
+
+        getExchangeRate('USD', 'UAH')
+          .then(result => {
+            setCurrentRate(result.info.rate);
+            setAmountTo(amountFrom * result.info.rate);
+          });
       });
   }, []);
 
